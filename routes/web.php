@@ -109,6 +109,28 @@ Route::prefix('admin')->group(function(){
 });
 
 
+/* lam viec voi middleware */
+
+Route::get('/film/watch/{age}',function($age){
+	return "oke";
+})->middleware('my.check.age:admin');
+
+Route::get('not-found',function(){
+	return "do not watch";
+})->name('notFound');
+
+Route::get('/check-number/{number}',function($number){
+	return "yes"; 
+});
+
+Route::get('/test-controller/{name}/{id}','TestController@index')->name('test-controller');
+
+Route::get('/test-age/{age}','TestController@checkAgeWatchFlim')->name('test-age');
+
+Route::get('test-request/{myname}/{myage}','TestController@testRequest')->name('test-request');
+
+Route::get('test-view','DemoController@index')->name('test-view');
+
 
 
 

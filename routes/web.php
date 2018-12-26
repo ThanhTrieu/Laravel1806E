@@ -130,6 +130,14 @@ Route::get('/test-age/{age}','TestController@checkAgeWatchFlim')->name('test-age
 Route::get('test-request/{myname}/{myage}','TestController@testRequest')->name('test-request');
 
 Route::get('test-view','DemoController@index')->name('test-view');
+Route::get('/contact','DemoController@contact')->name('contact');
+Route::get('/about','DemoController@about')->name('about');
+
+Route::group([
+	'prefix' => 'db-query'
+],function(){
+	Route::get('/select','QueryDbController@index')->name('select');
+});
 
 
 

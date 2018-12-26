@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class DemoController extends Controller
 {
+    public function contact()
+    {
+        return view('demo.contact');
+    }
+    
     public function index()
     {
     	// truyen du lieu tu controller ra view
@@ -53,6 +58,7 @@ class DemoController extends Controller
     	// 	'info' => $data
     	// ]);
     	// return view('demo')->with('m',$money);
-    	return view('demo',['info' => $infoSt]);
+    	// return view('demo',['info' => $infoSt]);
+    	return view('demo.index');
     }
 }

@@ -137,6 +137,7 @@ Route::group([
 	'prefix' => 'db-query'
 ],function(){
 	Route::get('/select','QueryDbController@index')->name('select');
+	Route::get('/orm','QueryDbController@orm')->name('orm');
 });
 
 

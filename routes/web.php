@@ -140,6 +140,30 @@ Route::group([
 	Route::get('/orm','QueryDbController@orm')->name('orm');
 });
 
+/******************** ADMIN ***************************************/
+Route::group([
+	'prefix' => 'admin',
+	'namespace' => 'Admin',
+	'as' => 'admin.'
+], function(){
+	Route::get('/login','LoginController@index')->name('login');
+	Route::post('/handle-login','LoginController@handleLogin')->name('handle-login');
+	Route::get('/logout','LoginController@logout')->name('logout');
+});
+
+
+Route::group([
+	'prefix' => 'admin',
+	'namespace' => 'Admin',
+	'as' => 'admin.',
+	'middleware' => ['check.admin.login','web']
+], function(){
+	Route::get('/dashboard','DashboardController@index')->name('dashboard');
+});
+
+
+
+
 
 
 

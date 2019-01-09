@@ -159,6 +159,12 @@ Route::group([
 	'middleware' => ['check.admin.login','web']
 ], function(){
 	Route::get('/dashboard','DashboardController@index')->name('dashboard');
+	
+	Route::get('/profile','ProfileController@index')->name('profile');
+
+	Route::get('/add-profile','ProfileController@addView')->name('formAddProfile');
+
+	Route::post('/handle-add-profile','ProfileController@handleAdd')->name('handleAddProfile');
 });
 
 

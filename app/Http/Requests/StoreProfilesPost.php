@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class StoreProfilesPost extends FormRequest
 {
@@ -21,11 +22,13 @@ class StoreProfilesPost extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
+        $id = $request->input('idProfile');
+        $ruleEmail = ($id) ? 'unique:profiles,email,'.$id : 'unique:profiles,email';
         return [
             'fullname' => 'required|min:3|max:60',
-            'email' => 'required|email',
+            'email' => 'required|email|'.$ruleEmail,
             'phone' => 'required',
             'address' => 'required',
             'date' => 'required',
@@ -44,6 +47,7 @@ class StoreProfilesPost extends FormRequest
             'fullname.max' => ':attribute khong lon hon :max ki tu',
             'email.required' => ':attribute khong duoc trong',
             'email.email' => ':attribute phai la dinh dang Email',
+            'email.unique' => ':attribute da ton tai', 
             'phone.required' => ':attribute khong duoc trong',
             'address.required' => ':attribute khong duoc trong',
             'date.required' => ':attribute khong duoc trong',

@@ -14,6 +14,32 @@ class Profiles extends Model
     	return ($data) ? $data->toArray() : [];
     }
 
+    public function getDataInfoProfileById($id)
+    {
+        $info = Profiles::find($id);
+        return $this->changeDataToArray($info);
+    }
+
+    public function updateProfileById($data, $id)
+    {
+        $up = DB::table('profiles')
+                ->where('id',$id)
+                ->update($data);
+        if($up){
+            return true;
+        }
+        return false;
+    }
+
+    public function deleteProfileById($id)
+    {
+        $profile = Profiles::find($id);
+        if($profile->delete()){
+            return true;
+        }
+        return false;
+    }
+
     public function saveProfile($data)
     {
     	$insert = DB::table('profiles')->insert($data);

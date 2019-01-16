@@ -165,6 +165,11 @@ Route::group([
 	Route::get('/add-profile','ProfileController@addView')->name('formAddProfile');
 
 	Route::post('/handle-add-profile','ProfileController@handleAdd')->name('handleAddProfile');
+
+	Route::post('/delete-profile','ProfileController@deleteProfile')->name('deleteProfile');
+
+	Route::get('/edit-profile/{id}','ProfileController@editProfile')->name('editProfile');
+	Route::post('handle-edit-profile/{id}','ProfileController@handleEdit')->name('handleEdit');
 });
 
 

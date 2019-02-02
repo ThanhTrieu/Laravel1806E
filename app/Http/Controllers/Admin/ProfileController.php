@@ -12,11 +12,16 @@ class ProfileController extends Controller
     public function index(Request $request, Profiles $profileModel)
     {
     	$data = [];
+        // get keyword
+        $keyword = $request->keyword;
+        $keyword = strip_tags($keyword);
+
     	$message = $request->session()->get('addProfile');
-    	$dataProfile = $profileModel->getAllDataProfile();
+    	$dataProfile = $profileModel->getAllDataProfile($keyword);
 
     	$data['mess'] = $message;
     	$data['info'] = $dataProfile;
+
 
     	return view('admin.profile.index',$data);
     }

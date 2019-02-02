@@ -11,9 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+/******************** Frontend *****************************/
+Route::group([
+	'namespace' => 'Frontend',
+	'as' => 'frontend.'
+],function(){
+	Route::get('/','ProfileController@index')->name('profile');
+	Route::get('/resume','ResumeController@index')->name('resume');
 });
+
+
+
+/*************************************************/
 
 /* method GET */
 Route::get('/hello', function(){

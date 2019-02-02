@@ -8,10 +8,18 @@ use Illuminate\Support\Facades\DB;
 class Profiles extends Model
 {
     protected $table = 'profiles';
+    private $limit = 2; // bao nhieu dong du lieu tren 1 trang
 
     private function changeDataToArray($data)
     {
     	return ($data) ? $data->toArray() : [];
+    }
+
+    public function getInfoProfileByActive($status)
+    {
+        $info = Profiles::where('status',$status)
+                        ->first();
+        return $info;
     }
 
     public function getDataInfoProfileById($id)
@@ -49,9 +57,14 @@ class Profiles extends Model
     	return false;
     }
 
-    public function getAllDataProfile()
+    public function getAllDataProfile($key = '')
     {
-    	$data = Profiles::all();
-    	return $this->changeDataToArray($data);
+    	$data = Profiles::where('fullname', 'LIKE', '%'.$key.'%')
+                         ->orWhere('email', 'LIKE', '%'.$key.'%')
+                         ->orWhere('phone', 'LIKE', '%'.$key.'%')
+                         ->paginate($this->limit);
+
+    	//$data = $this->changeDataToArray($data);
+        return $data;
     }
 }

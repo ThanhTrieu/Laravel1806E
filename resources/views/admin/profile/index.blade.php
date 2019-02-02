@@ -54,28 +54,31 @@
             <tr>
               <td>{{ $key + 1 }}</td>
               <td>
-                <img src="{{ URL::to('/uploads/images') }}/{{ $item['avatar'] }}" alt="avatar" width="120" height="120">
+                <img src="{{ URL::to('/uploads/images') }}/{{ $item->avatar }}" alt="avatar" width="120" height="120">
               </td>
-              <td>{{ $item['fullname'] }}</td>
-              <td>{{ $item['email'] }}</td>
-              <td>{{ $item['phone'] }}</td>
-              <td>{{ $item['address'] }}</td>
-              <td>{{ $item['birthday'] }}</td>
-              <td>{{ $item['gender'] == 1 ? 'Nam' : 'Nu' }}</td>
-              <td>{{ $item['single'] == 1 ? 'Doc Tha' : 'Gia dinh' }}</td>
+              <td>{{ $item->fullname }}</td>
+              <td>{{ $item->email }}</td>
+              <td>{{ $item->phone }}</td>
+              <td>{{ $item->address }}</td>
+              <td>{{ $item->birthday }}</td>
+              <td>{{ $item->gender == 1 ? 'Nam' : 'Nu' }}</td>
+              <td>{{ $item->single == 1 ? 'Doc Tha' : 'Gia dinh' }}</td>
               <td>
-                <p>{!! $item['description'] !!}</p>
-              </td>
-              <td>
-                <a href="{{ route('admin.editProfile',['id'=> $item['id']]) }}" class="btn btn-info">Edit</a>
+                <p>{!! $item->description !!}</p>
               </td>
               <td>
-                <button id="profile-{{ $item['id'] }}" data-id="{{ $item['id'] }}" class="btn btn-danger btn-delete-profile">Delete</button>
+                <a href="{{ route('admin.editProfile',['id'=> $item->id]) }}" class="btn btn-info">Edit</a>
+              </td>
+              <td>
+                <button id="profile-{{ $item->id }}" data-id="{{ $item->id }}" class="btn btn-danger btn-delete-profile">Delete</button>
               </td>
             </tr>
           @endforeach
         </tbody>
       </table>
+    </div>
+    <div class="col-md-12">
+      {{ $info->appends(request()->query())->links() }}
     </div>
   </div>
 </div>
@@ -84,11 +87,23 @@
 @push('javascript')
   <script type="text/javascript">
     $(function(){
+
+
       $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
       });
+
+      // bat su kien click search
+      $('#btnSearch').click(function() {
+        // lay keyword cua nguoi dung
+        let keyword = $('#txtSearch').val().trim();
+        if(keyword.length > 0){
+          window.location.href = "{{ route('admin.profile') }}" + "?keyword=" + keyword;
+        }
+      });
+      
 
       // viet ajax o day
       $('.btn-delete-profile').click(function() {
